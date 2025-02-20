@@ -24,7 +24,7 @@ public class Component {
     }
 
     public String render() {
-        stack.forEach(np -> System.out.println(np.level + ": " + np.node.getTag()));
+//        stack.forEach(np -> System.out.println(np.level + ": " + np.node.getTag()));
         Deque<HyperNode> openedTags = new ArrayDeque<>();
         StringBuilder sb = new StringBuilder();
         int currentLevel = 1;
@@ -74,7 +74,13 @@ public class Component {
                     breaks.add(new int[] { i, depth++ });
                 else
                     breaks.add(new int[] { i, --depth });
-            } else
+            }
+            // self closing tag case
+            else if(html.charAt(i) == '/'){
+                if(html.charAt(i+1) == '>')
+                    --depth;
+            }
+            else
                 continue;
         }
 
