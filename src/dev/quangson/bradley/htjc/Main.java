@@ -1,5 +1,7 @@
 package dev.quangson.bradley.htjc;
 
+import java.util.HashMap;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,15 +14,15 @@ public class Main {
                 ;
 
         var bodyContent = new Component()
-                .div(1)
+                .div(1).attributes("id=div1", "class=container background")
                 .div(2)
-                .ul(3)
+                .ul(3).attributes("class=list blue")
                 .li(4)
-                .a(5)
+                .a(5).text("click me for more details")
                 .li(4)
-                .span(5)
+                .span(5).text("list items are helpful")
                 .li(4)
-                .input(5)
+                .input(5).attributes("type=text", "value=Hi", "id=hello")
                 .div(1)
                 .span(2)
                 ;

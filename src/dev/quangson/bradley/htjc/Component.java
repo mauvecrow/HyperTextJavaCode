@@ -1,7 +1,11 @@
 package dev.quangson.bradley.htjc;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Component {
 
@@ -45,11 +49,21 @@ public class Component {
             }
 
             // print start tag
-            sb.append(node.getTag().startTag());
+            sb.append(node.getTag().openStartTag());
 //			System.out.println(new String(sb));
             openedTags.addLast(node);
 
             // print attributes if any
+            if(node.getAttributes() != null){
+                sb.append(node.getAttributesString());
+                sb.append(node.getTag().closeStartTag());
+            }
+            else
+                sb.append(node.getTag().closeStartTag());
+
+            // print text if any
+            if(node.getText() != null)
+                sb.append(node.getText());
 
             // increment level
             currentLevel++;
@@ -65,7 +79,7 @@ public class Component {
 
     public static String prettify(String html) {
         Deque<int[]> breaks = new ArrayDeque<>(); // size 2 array where first = pos, second = depth
-        Integer depth = 0;
+        int depth = 0;
         final int spacing = 4;
         StringBuilder sb = new StringBuilder(html);
         for (int i = 0; i < html.length(); i++) {
@@ -80,6 +94,10 @@ public class Component {
                 if(html.charAt(i+1) == '>')
                     --depth;
             }
+            // check for text
+            else if(i > 0  && html.charAt(i-1) == '>'
+                    && i < html.length()-1 && html.charAt(i+1) != '<')
+                breaks.add(new int[]{ i, depth });
             else
                 continue;
         }
@@ -104,6 +122,24 @@ public class Component {
     public Component add(Component comp, int level) {
         comp.stack.forEach( np -> np.level+= level);
         stack.addAll(comp.stack);
+        return this;
+    }
+
+    public Component attributes(Map<String, String> attributesMap){
+        stack.getLast().node.setAttributes(attributesMap);
+        return this;
+    }
+
+    public Component attributes(String...attributesStream){
+        Function<String, String> keyFunction = k -> k.substring(0, k.indexOf('='));
+        Function<String, String> valuFunction = v -> v.substring(v.indexOf('=')+1);
+        var map = Arrays.stream(attributesStream)
+                .collect(Collectors.toMap(keyFunction, valuFunction));
+        return attributes(map);
+    }
+
+    public Component text(String text){
+        stack.getLast().node.setText(text);
         return this;
     }
 
