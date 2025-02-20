@@ -17,7 +17,7 @@ public class Main {
                 .div(1).attributes("id=div1", "class=container background")
                 .div(2)
                 .ul(3).attributes("class=list blue")
-                .li(4)
+                .li(4).text("this is ").strong(5).text("SO").em(5).text("cool!") .empty(5).text(" amirite?")
                 .a(5).text("click me for more details")
                 .li(4)
                 .span(5).text("list items are helpful")

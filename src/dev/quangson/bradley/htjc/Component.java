@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class Component {
 
-    private Deque<NodePair> stack;
+    private final Deque<NodePair> stack;
 
-    private class NodePair {
+    private static class NodePair {
 
         int level;
         HyperNode node;
@@ -163,41 +163,54 @@ public class Component {
         return this;
     }
 
-    //	public ComponentBuilder h1() {
-//		JNode tag = new JNode().h1();
-//		return this;
-//	}
-//
-//	public ComponentBuilder h2() {
-//		JNode tag = new JNode().h2();
-//		return this;
-//	}
-//
-//	public ComponentBuilder h3() {
-//		JNode tag = new JNode().h3();
-//		return this;
-//	}
-//
-//	public ComponentBuilder h4() {
-//		JNode tag = new JNode().h4();
-//		return this;
-//	}
-//
-//	public ComponentBuilder h5() {
-//		JNode tag = new JNode().h5();
-//		return this;
-//	}
-//
-//	public ComponentBuilder h6() {
-//		JNode tag = new JNode().h6();
-//		return this;
-//	}
-//
-//	public ComponentBuilder p() {
-//		JNode tag = new JNode().p();
-//		return this;
-//	}
-//
+    public Component title(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TITLE);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component h1(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.H1);
+        stack.addLast(new NodePair(level, node));
+		return this;
+	}
+
+	public Component h2(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.H2);
+        stack.addLast(new NodePair(level, node));
+        return this;
+	}
+
+	public Component h3(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.H3);
+        stack.addLast(new NodePair(level, node));
+        return this;
+	}
+
+	public Component h4(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.H4);
+        stack.addLast(new NodePair(level, node));
+        return this;
+	}
+
+	public Component h5(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.H5);
+        stack.addLast(new NodePair(level, node));
+        return this;
+	}
+
+	public Component h6(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.H6);
+        stack.addLast(new NodePair(level, node));
+        return this;
+	}
+
+	public Component p(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.P);
+        stack.addLast(new NodePair(level, node));
+        return this;
+	}
+
     public Component div(Integer level) {
         HyperNode node = new HyperNode(HtmlTag.DIV);
         stack.addLast(new NodePair(level, node));
@@ -228,8 +241,68 @@ public class Component {
         return this;
     }
 
+    public Component table(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TABLE);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component tr(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TR);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component th(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TH);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component td(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TD);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component thead(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.THEAD);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component tfoot(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TFOOT);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component caption(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.CAPTION);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component img(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.IMG);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
     public Component a(Integer level) {
         HyperNode node = new HyperNode(HtmlTag.A);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component link(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.LINK);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component form(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.FORM);
         stack.addLast(new NodePair(level, node));
         return this;
     }
@@ -240,4 +313,57 @@ public class Component {
         return this;
     }
 
+    public Component label(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.LABEL);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component button(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.BUTTON);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component textarea(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.TEXTAREA);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component i(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.I);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component u(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.U);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component em(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.EM);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component strong(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.STRONG);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component br(Integer level) {
+        HyperNode node = new HyperNode(HtmlTag.BR);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
+
+    public Component empty(Integer level){
+        HyperNode node = new HyperNode(HtmlTag.empty);
+        stack.addLast(new NodePair(level, node));
+        return this;
+    }
 }
