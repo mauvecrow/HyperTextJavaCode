@@ -43,4 +43,12 @@ public enum HtmlTag {
         public String endTag() {
             return !selfClosing ? "</" + tag + ">" : "";
         }
+
+        public String openStartTag(){
+            return "<" + tag + " ";
+        }
+
+        public String closeStartTag(){
+            return !selfClosing ? ">" : "/>";
+    }
 }
