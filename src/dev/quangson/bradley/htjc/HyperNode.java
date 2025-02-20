@@ -1,55 +1,24 @@
 package dev.quangson.bradley.htjc;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HyperNode {
 
-    private String id;
-    private String classNames;
-    private String innerHtml;
+    private String text;
     private Map<String, String> attributes;
     private final HtmlTag tag;
 
     public HyperNode(HtmlTag tag) {
         this.tag = tag;
-        this.id = null;
-        this.classNames = null;
-        this.innerHtml = null;
+        this.text = null;
         this.attributes = null;
     }
 
-    public HyperNode id(String id) {
-        this.id = id;
-        return this;
-    }
+    // getters and setters
 
-    public HyperNode classNames(String classes) {
-        classNames = classes;
-        return this;
-    }
-
-    public HyperNode innerHtml(String text) {
-        innerHtml = text;
-        return this;
-    }
-
-    public HyperNode attributes(Map<String, String> map) {
-        attributes = map;
-        return this;
-    }
-
-    // getters
-
-    public String getId() {
-        return id;
-    }
-
-    public String getClassNames() {
-        return classNames;
-    }
-
-    public String getInnerHtml() {
-        return innerHtml;
+    public String getText() {
+        return text;
     }
 
     public Map<String, String> getAttributes() {
@@ -60,4 +29,19 @@ public class HyperNode {
         return tag;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
+
+    // helpful methods
+
+    public String getAttributesString(){
+        return attributes.entrySet().stream()
+                .map( entry -> " " + entry.getKey() + "=\"" + entry.getValue() + "\" ")
+                .collect(Collectors.joining());
+    }
 }
