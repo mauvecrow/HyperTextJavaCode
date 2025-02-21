@@ -15,6 +15,12 @@ public class HyperNode {
         this.attributes = null;
     }
 
+    public HyperNode(String text, Map<String, String> attributes, HtmlTag tag) {
+        this.text = text;
+        this.attributes = attributes;
+        this.tag = tag;
+    }
+
     // getters and setters
 
     public String getText() {
