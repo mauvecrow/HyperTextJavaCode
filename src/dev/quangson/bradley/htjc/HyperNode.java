@@ -34,6 +34,8 @@ public class HyperNode {
     }
 
     public void setAttributes(Map<String, String> attributes) {
+        if(tag == HtmlTag.empty)
+            return; // consider throwing exception
         this.attributes = attributes;
     }
 
