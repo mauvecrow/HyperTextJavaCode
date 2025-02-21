@@ -27,7 +27,14 @@ public class Main {
                 .span(2)
                 ;
 
-        String htmlString = htmldoc.add(bodyContent,2).render();
-        System.out.println(Component.prettify(htmlString));
+//        String htmlString = htmldoc.add(bodyContent,2).render();
+//        System.out.println(Components.prettify(htmlString));
+
+        var listItem = new Component()
+                .li(1).span(2).text("item");
+        var listItems = Components.repeat(3, listItem);
+        var list = Components.add(new Component().ul(1), listItems,1);
+//        System.out.println(list.render());
+        System.out.println(Components.prettify(list.render()));
     }
 }
