@@ -11,7 +11,7 @@ public class Component {
 
     private final Deque<NodePair> stack;
 
-    private static class NodePair {
+    static class NodePair {
 
         int level;
         HyperNode node;
@@ -25,6 +25,20 @@ public class Component {
 
     public Component() {
         this.stack = new ArrayDeque<>();
+    }
+
+    public Component(Component component){
+        Deque<NodePair> newStack = new ArrayDeque<>();
+        component.getStack().forEach( np -> {
+            var node = np.node;
+            var hyperNode = new HyperNode(node.getText(), node.getAttributes(), node.getTag());
+            newStack.addLast(new NodePair(np.level, hyperNode));
+        });
+        this.stack = newStack;
+    }
+
+    Deque<NodePair> getStack(){
+        return this.stack;
     }
 
     public String render() {
