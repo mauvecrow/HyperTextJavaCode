@@ -1,19 +1,19 @@
 package dev.quangson.bradley.htjc;
 
-import java.util.HashMap;
+import custom.components.LoginComponent;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("Welcome ot HTJC - Hyper Text Java Code!");
 
-        var htmldoc = new Component()
+        var htmldoc = new Component.Builder()
                 .html(1)
                 .head(2)
                 .body(2)
                 ;
 
-        var bodyContent = new Component()
+        var bodyContent = new Component.Builder()
                 .div(1).attributes("id=div1", "class=container background")
                 .div(2)
                 .ul(3).attributes("class=list blue")
@@ -27,14 +27,23 @@ public class Main {
                 .span(2)
                 ;
 
-//        String htmlString = htmldoc.add(bodyContent,2).render();
-//        System.out.println(Components.prettify(htmlString));
+        String htmlString = htmldoc.add(bodyContent,2)
+                .build()
+                .render();
 
-        var listItem = new Component()
-                .li(1).span(2).text("item");
+        System.out.println(Components.prettify(htmlString));
+
+        var listItem = new Component.Builder()
+                .li(1).span(2).text("item")
+                .build();
+
         var listItems = Components.repeat(3, listItem);
-        var list = Components.add(new Component().ul(1), listItems,1);
-//        System.out.println(list.render());
+        var parentList = new Component.Builder().ul(1).build();
+        var list = Components.add(parentList, listItems,1);
+        System.out.println(list.render());
         System.out.println(Components.prettify(list.render()));
+
+//        LoginComponent login = new LoginComponent();
+//        System.out.println(Components.prettify(login.getHtml()));
     }
 }

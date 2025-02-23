@@ -6,18 +6,19 @@ import java.util.Deque;
 public class Components {
 
     public static Component add(Component baseComp, Component addingComp, int level) {
-        addingComp.getStack().forEach( np -> np.level+= level);
-        baseComp.getStack().addAll(addingComp.getStack());
-        return baseComp;
+        var copyBaseComp = new Component.Builder(baseComp);
+        var copyAddingComp = new Component.Builder(addingComp);
+        copyBaseComp.add(copyAddingComp, level);
+        return copyBaseComp.build();
     }
 
     public static Component repeat(int repetitions, Component baseComp){
-        var newComp = new Component();
+        var newComp = new Component.Builder();
         for(int i = 0; i < repetitions; i++){
-            var copyComp = new Component(baseComp);
-            newComp.getStack().addAll(copyComp.getStack());
+            var copyComp = new Component.Builder(baseComp);
+            newComp.add(copyComp, 0);
         }
-        return newComp;
+        return newComp.build();
     }
 
     public static String prettify(String html) {

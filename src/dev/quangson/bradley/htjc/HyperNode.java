@@ -5,44 +5,48 @@ import java.util.stream.Collectors;
 
 public class HyperNode {
 
-    private String text;
-    private Map<String, String> attributes;
     private final HtmlTag tag;
+    private Map<String, String> attributes;
+    private String text;
+    private int level;
 
-    public HyperNode(HtmlTag tag) {
+    public HyperNode(HtmlTag tag, Map<String, String> attributes, String text, int level) {
         this.tag = tag;
-        this.text = null;
-        this.attributes = null;
-    }
-
-    public HyperNode(String text, Map<String, String> attributes, HtmlTag tag) {
-        this.text = text;
         this.attributes = attributes;
-        this.tag = tag;
+        this.text = text;
+        this.level = level;
     }
 
-    // getters and setters
-
-    public String getText() {
-        return text;
-    }
-
-    public Map<String, String> getAttributes() {
-        return attributes;
+    public HyperNode(int level, HtmlTag tag) {
+        this(tag, null, null, level);
     }
 
     public HtmlTag getTag() {
         return tag;
     }
 
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public String getText() {
+        return text;
+    }
+
     public void setText(String text) {
         this.text = text;
     }
 
-    public void setAttributes(Map<String, String> attributes) {
-        if(tag == HtmlTag.empty)
-            return; // consider throwing exception
-        this.attributes = attributes;
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     // helpful methods
