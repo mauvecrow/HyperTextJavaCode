@@ -1,7 +1,7 @@
 package dev.quangson.bradley.htjc;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Components {
 
@@ -22,7 +22,7 @@ public class Components {
     }
 
     public static String prettify(String html) {
-        Deque<int[]> breaks = new ArrayDeque<>(); // size 2 array where first = pos, second = depth
+        List<int[]> breaks = new ArrayList<>(); // size 2 array where first = pos, second = depth
         int depth = 0;
         final int spacing = 4;
         StringBuilder sb = new StringBuilder(html);
@@ -42,8 +42,7 @@ public class Components {
             else if(i > 0  && html.charAt(i-1) == '>'
                     && i < html.length()-1 && html.charAt(i+1) != '<')
                 breaks.add(new int[]{ i, depth });
-            else
-                continue;
+
         }
 
         while (!breaks.isEmpty()) {
@@ -52,9 +51,7 @@ public class Components {
             int depths = last[1];
             StringBuilder newLine = new StringBuilder();
             newLine.append("\n");
-            for (int i = 0; i < depths; i++) {
-                newLine.append(" ".repeat(spacing));
-            }
+            newLine.append(" ".repeat(spacing * depths));
             sb.insert(position, newLine);
 
         }
