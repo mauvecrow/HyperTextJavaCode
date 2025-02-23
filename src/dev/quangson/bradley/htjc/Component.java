@@ -1,51 +1,52 @@
 package dev.quangson.bradley.htjc;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Component {
 
-    private final Deque<HyperNode> stack;
+    private final List<HyperNode> nodes;
 
-    private Component(Deque<HyperNode> stack) {
-        this.stack = stack;
+    private Component(List<HyperNode> nodes) {
+        this.nodes = nodes;
     }
 
     public static class Builder {
 
-        private final Deque<HyperNode> builderStack;
+        private final List<HyperNode> builderNodes;
 
         public Builder() {
-            this.builderStack = new ArrayDeque<>();
+            this.builderNodes = new ArrayList<>();
         }
 
         public Builder(Component component){
-            this.builderStack = copyStack(component.getStack(), 0);
+            this.builderNodes = copyList(component.getNodes());
         }
 
         public Builder add(Builder builderComp, int parentLevel) {
-            var newStack = copyStack(builderComp.builderStack, parentLevel);
-            builderStack.addAll(newStack);
+            var newList = copyList(builderComp.builderNodes, parentLevel);
+            builderNodes.addAll(newList);
             return this;
         }
 
-        private Deque<HyperNode> copyStack(Deque<HyperNode> stack, int levelOffset){
-            Deque<HyperNode> newStack = new ArrayDeque<>();
+        private List<HyperNode> copyList(List<HyperNode> nodeList, int levelOffset){
+            List<HyperNode> newList = new ArrayList<>();
 
-            stack.forEach(node -> {
+            nodeList.forEach(node -> {
                 var newNode = new HyperNode(node.getTag(), node.getAttributes(), node.getText(), node.getLevel() + levelOffset);
-                newStack.addLast(newNode);
+                newList.add(newNode);
             });
 
-            return newStack;
+            return newList;
+        }
+
+        private  List<HyperNode> copyList(List<HyperNode> nodeList){
+            return copyList(nodeList, 0);
         }
 
         public Builder attributes(Map<String, String> attributesMap){
-            builderStack.getLast().setAttributes(attributesMap);
+            builderNodes.getLast().setAttributes(attributesMap);
             return this;
         }
 
@@ -58,251 +59,252 @@ public class Component {
         }
 
         public Builder text(String text){
-            builderStack.getLast().setText(text);
+            builderNodes.getLast().setText(text);
             return this;
         }
 
         public Component build(){
-            return new Component(builderStack);
+            var immutableList = List.copyOf(this.builderNodes);
+            return new Component(immutableList);
         }
 
         // Node tag methods
 
         public Builder html(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.HTML);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder head(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.HEAD);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder body(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.BODY);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder title(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TITLE);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder h1(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.H1);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder h2(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.H2);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder h3(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.H3);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder h4(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.H4);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder h5(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.H5);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder h6(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.H6);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder p(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.P);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder div(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.DIV);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder span(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.SPAN);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder ul(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.UL);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder ol(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.OL);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder li(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.LI);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder table(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TABLE);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder tr(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TR);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder th(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TH);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder td(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TD);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder thead(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.THEAD);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder tfoot(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TFOOT);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder caption(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.CAPTION);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder img(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.IMG);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder a(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.A);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder link(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.LINK);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder form(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.FORM);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder input(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.INPUT);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder label(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.LABEL);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder button(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.BUTTON);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder textarea(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.TEXTAREA);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder i(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.I);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder u(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.U);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder em(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.EM);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder strong(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.STRONG);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder br(int level) {
             HyperNode node = new HyperNode(level, HtmlTag.BR);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
         public Builder empty(int level){
             HyperNode node = new HyperNode(level, HtmlTag.empty);
-            builderStack.addLast(node);
+            builderNodes.addLast(node);
             return this;
         }
 
 
     }
 
-    Deque<HyperNode> getStack(){
-        return this.stack;
+    List<HyperNode> getNodes(){
+        return this.nodes;
     }
 
     public String render() {
-        Deque<HyperNode> openedTags = new ArrayDeque<>();
+        List<HyperNode> openedTags = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         int currentLevel = 1;
 
-        for (var node : this.stack) {
+        for (var node : this.nodes) {
             var level = node.getLevel();
 
             // print inner end tag
