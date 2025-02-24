@@ -31,6 +31,7 @@ public class Main {
                 .build()
                 .render();
 
+        System.out.println(htmlString);
         System.out.println(Components.prettify(htmlString));
 
         var listItem = new Component.Builder()
@@ -45,5 +46,19 @@ public class Main {
 
 //        LoginComponent login = new LoginComponent();
 //        System.out.println(Components.prettify(login.getHtml()));
+
+        Model m = new Model("Mercedes", 4, new String[]{"bharain", "australia","monaco"});
+        Component.Builder races = new Component.Builder();
+        for(String race : m.arr){
+            races.li(1).span(2).text(race);
+        }
+        var raceList = new Component.Builder()
+                .ul(1)
+                .add(races, 1)
+                .build();
+
+        System.out.println(raceList.render());
     }
+
+    record Model(String name, int num, String[] arr){};
 }
