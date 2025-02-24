@@ -23,10 +23,10 @@ public class Components {
 
     public static String prettify(String html) {
         List<int[]> breaks = new ArrayList<>(); // size 2 array where first = pos, second = depth
-        int depth = 0;
+        int depth = 1;
         final int spacing = 4;
         StringBuilder sb = new StringBuilder(html);
-        for (int i = 0; i < html.length(); i++) {
+        for (int i = 1; i < html.length(); i++) {
             if (html.charAt(i) == '<') {
                 if (html.charAt(i + 1) != '/')
                     breaks.add(new int[] { i, depth++ });
@@ -39,7 +39,7 @@ public class Components {
                     --depth;
             }
             // check for text
-            else if(i > 0  && html.charAt(i-1) == '>'
+            else if(i > 1  && html.charAt(i-1) == '>'
                     && i < html.length()-1 && html.charAt(i+1) != '<')
                 breaks.add(new int[]{ i, depth });
 
