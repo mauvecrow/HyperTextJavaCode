@@ -33,7 +33,7 @@ public enum HtmlTag {
         }
 
         public String openStartTag(){
-            return !tag.equals("empty") ? "<" + tag + " " : "";
+            return !tag.equals("empty") ? "<" + tag : "";
         }
 
         public String closeStartTag(){
