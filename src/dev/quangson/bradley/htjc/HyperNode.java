@@ -52,8 +52,8 @@ public class HyperNode {
     // helpful methods
 
     public String getAttributesString(){
-        return attributes.entrySet().stream()
-                .map( entry -> " " + entry.getKey() + "=\"" + entry.getValue() + "\" ")
+        return " " + attributes.entrySet().stream()
+                .map( entry -> entry.getKey() + "=\"" + entry.getValue() + "\" ")
                 .collect(Collectors.joining());
     }
 }
