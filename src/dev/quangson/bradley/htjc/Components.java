@@ -6,16 +6,16 @@ import java.util.List;
 public class Components {
 
     public static Component add(Component baseComp, Component addingComp, int level) {
-        var copyBaseComp = new Component.Builder(baseComp);
-        var copyAddingComp = new Component.Builder(addingComp);
+        var copyBaseComp = new ComponentBuilder(baseComp);
+        var copyAddingComp = new ComponentBuilder(addingComp);
         copyBaseComp.add(copyAddingComp, level);
         return copyBaseComp.build();
     }
 
     public static Component repeat(int repetitions, Component baseComp){
-        var newComp = new Component.Builder();
+        var newComp = new ComponentBuilder();
         for(int i = 0; i < repetitions; i++){
-            var copyComp = new Component.Builder(baseComp);
+            var copyComp = new ComponentBuilder(baseComp);
             newComp.add(copyComp, 0);
         }
         return newComp.build();

@@ -7,7 +7,7 @@ class ComponentTest {
 
     @Test
     void renderHtmlDoc() {
-        var doc = new Component.Builder()
+        var doc = new ComponentBuilder()
                 .html(1)
                 .head(2)
                 .body(2)
@@ -22,7 +22,7 @@ class ComponentTest {
 
     @Test
     void prettifyHtmlDoc() {
-        var doc = new Component.Builder()
+        var doc = new ComponentBuilder()
                 .html(1)
                 .head(2)
                 .body(2)
